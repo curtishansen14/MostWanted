@@ -116,7 +116,8 @@ function searchByGender(people) {
 
 function searchByAge(people) {
  let userInputAge = prompt("How old are they in years?");
-  let ageArray = people.filter(function (el) {
+ dobToAge(people);
+ let ageArray = people.filter(function (el) {
     if(el.age == userInputAge) {
       alert(el.firstName + " " + el.lastName);
       return true;
@@ -130,8 +131,17 @@ function searchByAge(people) {
 }
 
 function dobToAge(people){
+  let dobArray = people.map(function (el) {
+    let today = new Date();
+    let age = Date.parse(today) - Date.parse(el.dob);
+    let realAge = age / 31556952000;
+    realAge = Math.floor(realAge);
+    el.age = realAge;
+    return el;
+  });
 
 }
+
 
 function searchByOccupation(people) {
   let userInputOccupation = prompt("What is the persons occupation?");
