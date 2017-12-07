@@ -55,6 +55,7 @@ function searchByHeight(people) {
 
   let heightArray = people.filter(function (el) {
     if(el.height == userInputHeight) {
+      alert(el.firstName + " " + el.lastName);
       return true;
     }
     else{
@@ -69,6 +70,7 @@ function searchByWeight(people) {
 
   let newArray = people.filter(function (el) {
     if(el.weight == userInputWeight) {
+      alert(el.firstName + " " + el.lastName);
       return true;
     }
     else{
@@ -86,36 +88,45 @@ function searchByEyeColor(people) {
 
   let eyeColorArray = people.filter(function (el) {
     if(el.eyeColor == userInputEyeColor) {
+      alert(el.firstName + " " + el.lastName);
       return true;
     }
     else{
       return false;
     }
   });
+
+  return eyeColorArray;
 }
 
 function searchByGender(people) {
   let userInputGender = prompt("what is their gender?");
   let genderArray = people.filter(function (el) {
     if(el.gender == userInputGender) {
+      alert(el.firstName + " " + el.lastName);
       return true;
     }
     else{
       return false;
     }
   });
+
+  return genderArray;
 }
 
 function searchByAge(people) {
  let userInputAge = prompt("How old are they in years?");
   let ageArray = people.filter(function (el) {
     if(el.age == userInputAge) {
+      alert(el.firstName + " " + el.lastName);
       return true;
     }
     else{
       return false;
     }
   });
+
+  return ageArray;
 }
 
 function dobToAge(people){
@@ -126,12 +137,15 @@ function searchByOccupation(people) {
   let userInputOccupation = prompt("What is the persons occupation?");
   let occupationArray = people.filter(function (el) {
     if(el.occupation == userInputOccupation) {
+      alert(el.firstName + " " + el.lastName);
       return true;
     }
     else{
       return false;
     }
   });
+
+ return occupationArray
 }
 
 
@@ -170,11 +184,20 @@ function mainMenu(person, people){
 function searchByName(people){
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
-  
+  let nameArray = people.filter(function (el) {
+    if(firstName == el.firstName && lastName == el.lastName){
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
 
   // TODO: find the person using the name they entered
 
 }
+
+searchByName(people);
 
 // alerts a list of people
 function displayPeople(people){
@@ -209,3 +232,6 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+
+
+
