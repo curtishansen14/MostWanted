@@ -3,6 +3,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 */
 
 // app is the function called to start the entire application
+// NOTE: fix the display function
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
@@ -12,6 +13,8 @@ function app(people){
     //console.log(person);
     spouseInfo(people, person);
     desendantsInfo(people, person);
+    siblingsInfo(people, person);
+    //displayfamily(people, person);
     break;
     case 'no':
     searchByTraits(people);
@@ -214,15 +217,6 @@ function searchByName(people){
     }
   });
 
-  // let spouses = people.filter(function(el){
-  //   if(person[0].id === el.currentSpouse) {
-  //     alert(el.firstName + " " + el.lastName);
-  //     return true;
-  //   }
-  //   else{
-  //     return false;
-  //   }
-  // });
   return person[0];
 
 }
@@ -248,7 +242,7 @@ function desendantsInfo(people, person){
   let parent = people.filter(function(el){
     if(person.id == el.parents[0, 1]){
       alert("This persons desendants are: ")
-      alert(el.firstName + " " + el.lastName)
+      //var parent2 = el.firstName + " " + el.lastName
       return true;
     }
     else{
@@ -256,13 +250,34 @@ function desendantsInfo(people, person){
     }
   });
 
-  return parent;
+  return parent2;
+}
+
+function siblingsInfo(people, person){
+  let sibling = people.filter(function(el){
+    if(person.parents == el.parents[0 && 1]){
+        return true;
+      }
+      else{
+        return false;
+      }
+      alert("The persons siblings are: ")
+      alert(el.firstName + " " + el.lastName)
+    
+  });
+
+  return sibling;
+}
+
+function displayfamily(people, person){
+  let spouse = spouseInfo(people, person);
+  let siblings = siblingsInfo(people, person);
+  let descendants = desendantsInfo(people, person);
+  alert(spouse + "\n" + siblings + "\n" + descendants);
 }
 
 
 
-
-app(data);
 
 // alerts a list of people
 function displayPeople(people){
