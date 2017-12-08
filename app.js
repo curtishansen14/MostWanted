@@ -10,7 +10,8 @@ function app(people){
     //searchByName(people);
     let person = searchByName(people);
     //console.log(person);
-    familyInfo(people, person);
+    spouseInfo(people, person);
+    desendantsInfo(people, person);
     break;
     case 'no':
     searchByTraits(people);
@@ -226,20 +227,40 @@ function searchByName(people){
 
 }
 
-
-function familyInfo(people, person){
+//why is it 22 arrays
+function spouseInfo(people, person){
   let spouses = people.filter(function(el){ 
     if(person.id === el.currentSpouse) {
+      alert("This persons spouse is: ");
       alert(el.firstName + " " + el.lastName);
       return true;
     }
     else{
       return false;
     }
-  });
-  return spouses;
 
+  });
+
+  return spouses;
 }
+
+function desendantsInfo(people, person){
+  let parent = people.filter(function(el){
+    if(person.id == el.parents[0, 1]){
+      alert("This persons desendants are: ")
+      alert(el.firstName + " " + el.lastName)
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
+
+  return parent;
+}
+
+
+
 
 app(data);
 
