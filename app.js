@@ -7,7 +7,7 @@ function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
-     
+    searchByName(people);
     break;
     case 'no':
     searchByTraits(people);
@@ -76,7 +76,6 @@ function searchByWeight(people) {
     else{
       return false;
     }
-    // return true if el.height matches userInputHeight
   });
 
   return newArray;
@@ -194,8 +193,16 @@ function mainMenu(person, people){
 function searchByName(people){
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
-  let nameArray = people.filter(function (el) {
-    if(firstName == el.firstName && lastName == el.lastName){
+  firstName = firstName.toLowerCase();
+  lastName = lastName.toLowerCase();
+  let person = people.filter(function (el) {
+    if(firstName == el.firstName.toLowerCase() && lastName == el.lastName.toLowerCase()){
+      alert("Gender: "+ el.gender + "\n" +
+       "Date of Birth: " + el.dob + "\n" + 
+        "Height: " + el.height + "\n" +
+        "Weight: " + el.weight + "\n" + 
+        "Eye Color: " + el.eyeColor + "\n" +
+        "Occupation: " + el.occupation);
       return true;
     }
     else{
@@ -203,11 +210,11 @@ function searchByName(people){
     }
   });
 
-  // TODO: find the person using the name they entered
+  return person;
 
 }
 
-searchByName(people);
+app(data);
 
 // alerts a list of people
 function displayPeople(people){
