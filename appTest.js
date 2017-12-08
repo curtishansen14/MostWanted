@@ -58,39 +58,48 @@
 // }
 
 
+//Info about the person
+//crate a function that will show the persons info after they enter a name.
+//in order to show the right info, the correct number of the array must corespond with the name they typed in
+//call the function that gets the name
+//set up a variable that gets the arrays from the data
+//set up a if else statement that will see if the array matches with the name
 
 
-function searchByName(people){
-  var firstName = promptFor("What is the person's first name?", chars);
-  var lastName = promptFor("What is the person's last name?", chars);
-  let nameArray = people.filter(function (el) {
-    if(firstName == el.firstName && lastName == el.lastName){
+
+//function that gives the user the family of the person they typed in
+//current spouse, parents, desendants, siblings
+//cuurent spouse: idenified by id 
+//parents: id array
+//siblings: same parents array
+//desendants: persons id appears in another index .parents array
+
+
+  let spouse = people.filter(function (el){
+    if(el.currentSpouse == el.id){
+      alert(el.firstName + el.lastName);
+      return true;
+    else{
+      return false;
+    }  
+   }
+  });
+}
+
+
+function familyInfo(person, people){
+  let spouses = people.filter(function(el){
+    if(person[0].id === el.currentSpouse) {
+      // el.currentSpouse = el.firstName + el.lastName;
+
+      console.log(person[0]);
+      console.log(el);
       return true;
     }
     else{
       return false;
     }
   });
-
-  return nameArray;
+  return spouses;
 
 }
-
-function promptFor(question, valid){
-  do{
-    var response = prompt(question).trim();
-  } while(!response || !valid(response));
-  return response;
-}
-
-// helper function to pass into promptFor to validate yes/no answers
-function yesNo(input){
-  return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
-}
-
-// helper function to pass in as default promptFor validation
-function chars(input){
-  return true; // default validation only
-}
-
-searchByName(data);

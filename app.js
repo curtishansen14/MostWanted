@@ -7,7 +7,10 @@ function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
-    searchByName(people);
+    //searchByName(people);
+    let person = searchByName(people);
+    //console.log(person);
+    familyInfo(people, person);
     break;
     case 'no':
     searchByTraits(people);
@@ -172,7 +175,7 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
+    familyInfo(people);
     break;
     case "family":
     // TODO: get person's family
@@ -210,7 +213,31 @@ function searchByName(people){
     }
   });
 
-  return person;
+  // let spouses = people.filter(function(el){
+  //   if(person[0].id === el.currentSpouse) {
+  //     alert(el.firstName + " " + el.lastName);
+  //     return true;
+  //   }
+  //   else{
+  //     return false;
+  //   }
+  // });
+  return person[0];
+
+}
+
+
+function familyInfo(people, person){
+  let spouses = people.filter(function(el){ 
+    if(person.id === el.currentSpouse) {
+      alert(el.firstName + " " + el.lastName);
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
+  return spouses;
 
 }
 
