@@ -11,10 +11,10 @@ function app(people){
     //searchByName(people);
     let person = searchByName(people);
     //console.log(person);
-    spouseInfo(people, person);
-    desendantsInfo(people, person);
-    siblingsInfo(people, person);
-    //displayfamily(people, person);
+    // spouseInfo(people, person);
+    // desendantsInfo(people, person);
+    // siblingsInfo(people, person);
+    displayfamily(people, person);
     break;
     case 'no':
     searchByTraits(people);
@@ -223,50 +223,57 @@ function searchByName(people){
 
 //why is it 22 arrays
 function spouseInfo(people, person){
+  let answer;
   let spouses = people.filter(function(el){ 
     if(person.id === el.currentSpouse) {
-      alert("This persons spouse is: ");
-      alert(el.firstName + " " + el.lastName);
+      //answer = alert("This persons spouse is: " + "\n" + el.firstName + " " + el.lastName);
+      answer = el.firstName + " " + el.lastName
       return true;
     }
     else{
+      //answer = " "
       return false;
     }
 
   });
 
-  return spouses;
+  return answer;
 }
 
 function desendantsInfo(people, person){
+  let answer;
   let parent = people.filter(function(el){
     if(person.id == el.parents[0, 1]){
-      alert("This persons desendants are: ")
-      //var parent2 = el.firstName + " " + el.lastName
+      //answer = alert("This persons desendants are: " + "\n" + el.firstName + " " + el.lastName) 
+      answer = el.firstName + " " + el.lastName
       return true;
     }
     else{
+      answer = " "
       return false;
     }
   });
 
-  return parent2;
+  return answer;
 }
 
 function siblingsInfo(people, person){
+  let answer;
   let sibling = people.filter(function(el){
     if(person.parents == el.parents[0 && 1]){
-        return true;
+      //alert("The persons siblings are: " + "\n" + el.firstName + " " + el.lastName)
+      answer = el.firstName + " " + el.lastName
+      return true;
       }
       else{
-        return false;
+      answer = " "
+      return false;
       }
-      alert("The persons siblings are: ")
-      alert(el.firstName + " " + el.lastName)
+
     
   });
 
-  return sibling;
+  return answer;
 }
 
 function displayfamily(people, person){
