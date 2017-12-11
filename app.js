@@ -4,17 +4,15 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 // NOTE: fix the display function
+
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
-    //searchByName(people);
     let person = searchByName(people);
-    //console.log(person);
     spouseInfo(people, person);
-    desendantsInfo(people, person);
+    descendantsInfo(people, person);
     siblingsInfo(people, person);
-    //displayfamily(people, person);
     break;
     case 'no':
     searchByTraits(people);
@@ -25,6 +23,8 @@ function app(people){
     break;
   }
 }
+
+
 
 function searchByTraits(people) {
   let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
@@ -204,7 +204,9 @@ function searchByName(people){
   lastName = lastName.toLowerCase();
   let person = people.filter(function (el) {
     if(firstName == el.firstName.toLowerCase() && lastName == el.lastName.toLowerCase()){
-      alert("Gender: "+ el.gender + "\n" +
+      alert("Name: " + el.firstName + " " + el.lastName + "\n" + "\n" + 
+
+        "Gender: "+ el.gender + "\n" +
        "Date of Birth: " + el.dob + "\n" + 
         "Height: " + el.height + "\n" +
         "Weight: " + el.weight + "\n" + 
@@ -221,12 +223,10 @@ function searchByName(people){
 
 }
 
-//why is it 22 arrays
 function spouseInfo(people, person){
-  let spouses = people.filter(function(el){ 
+  let spouse = people.filter(function(el){ 
     if(person.id === el.currentSpouse) {
-      alert("This persons spouse is: ");
-      alert(el.firstName + " " + el.lastName);
+
       return true;
     }
     else{
@@ -234,48 +234,39 @@ function spouseInfo(people, person){
     }
 
   });
-
-  return spouses;
+  alert("This person's spouse is:")
+  displayPeople(spouse)
+  return spouse
 }
 
-function desendantsInfo(people, person){
-  let parent = people.filter(function(el){
-    if(person.id == el.parents[0, 1]){
-      alert("This persons desendants are: ")
-      //var parent2 = el.firstName + " " + el.lastName
+function descendantsInfo(people, person){
+  let descendants = people.filter(function(el){
+    if(person.id == el.parents[0]  || person.id == el.parents[1] ){
       return true;
     }
     else{
       return false;
     }
   });
-
-  return parent2;
+      alert("This person's descentdants are:")
+      displayPeople(descendants)
+   return descendants;
 }
 
 function siblingsInfo(people, person){
-  let sibling = people.filter(function(el){
-    if(person.parents == el.parents[0 && 1]){
+  let siblings = people.filter(function(el){
+    if(person.parents[0 || 1] == el.parents[0 || 1] && person.id != el.id){
         return true;
       }
       else{
         return false;
       }
-      alert("The persons siblings are: ")
-      alert(el.firstName + " " + el.lastName)
-    
+
   });
-
-  return sibling;
+    alert("This person's siblings are:")
+    displayPeople(siblings)
+  return siblings;
 }
-
-function displayfamily(people, person){
-  let spouse = spouseInfo(people, person);
-  let siblings = siblingsInfo(people, person);
-  let descendants = desendantsInfo(people, person);
-  alert(spouse + "\n" + siblings + "\n" + descendants);
-}
-
 
 
 
