@@ -11,7 +11,8 @@ function app(people){
     case 'yes':
     let person = searchByName(people);
     spouseInfo(people, person);
-    descendantsInfo(people, person);
+    let result = descendantsInfo(people, person);
+    displayPeople(result);
     siblingsInfo(people, person);
     break;
     case 'no':
@@ -70,12 +71,13 @@ function searchByHeight(people) {
     }
   });
 
+return heightArray;
 }
 
 function searchByWeight(people) {
   let userInputWeight = prompt("How much does the person weigh in pounds?");
 
-  let newArray = people.filter(function (el) {
+  let weightArray = people.filter(function (el) {
     if(el.weight == userInputWeight) {
       alert(el.firstName + " " + el.lastName);
       return true;
@@ -85,7 +87,7 @@ function searchByWeight(people) {
     }
   });
 
-  return newArray;
+  return weightArray;
 }
 
 
@@ -241,27 +243,32 @@ function spouseInfo(people, person){
 
 function descendantsInfo(people, person){
   let descendants = people.filter(function(el){
-    if(person.id == el.parents[0]  || person.id == el.parents[1] ){
-      return true;
-    }
-    else{
-      return false;
-    }
+    for (let i = 0; i < el.parents.length; i++){
+          if(person.id == el.parents[i]){
+            return true;
+      }
+  }
   });
-      alert("This person's descentdants are:")
-      displayPeople(descendants)
+  for (let i = 0; i < descendants.length; i++){
+    descendants = descendants.concat(descendantsInfo(people, descendants[i]));
+  }
+
    return descendants;
 }
 
 function siblingsInfo(people, person){
   let siblings = people.filter(function(el){
-    if(person.parents[0 || 1] == el.parents[0 || 1] && person.id != el.id){
+    for (let i = 0; i < el.parents.length; i++) {
+    if(person.parents[0] == el.parents[i] && person.id != el.id){
         return true;
       }
+    if (person.parents[1] == el.parents[i] && person.id != el.id){
+        return true;
+      }    
       else{
         return false;
       }
-
+    }
   });
     alert("This person's siblings are:")
     displayPeople(siblings)
