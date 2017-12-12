@@ -75,6 +75,7 @@
 //desendants: persons id appears in another index .parents array
 
 
+
 //   let spouse = people.filter(function (el){
 //     if(el.currentSpouse == el.id){
 //       alert(el.firstName + el.lastName);
@@ -106,44 +107,11 @@
 function display2(data){
 let call = display(data);
 let traitResults = multipleTraits(data, call);
+// let answer = multipleTraits();
+displayPeople(traitResults);
 }
 
 
-function searchByTraits(people) {
-  let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
-  let lowerCase = userSearchChoice.toLowerCase();
-  let filteredPeople;
-
-  switch(lowerCase) {
-    case "height":
-      filteredPeople = searchByHeight(people);
-      break;
-    case "weight":
-      filteredPeople = searchByWeight(people);
-      break;
-    case "eye color":
-      filteredPeople = searchByEyeColor(people);
-      break;
-    case "gender":
-      filteredPeople = searchByGender(people);
-      break;
-    case "age":
-      filteredPeople = searchByAge(people);
-      break;
-    case "occupation":
-      filteredPeople = searchByOccupation(people);
-      break;
-    default:
-      alert("You entered an invalid search type! Please try again.");
-      searchByTraits(people);
-      break;
-  }  
-
-  let foundPerson = filteredPeople[0];
-
-  mainMenu(foundPerson, people);
-
-}
 
 function prompt1(people){
   let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
@@ -252,6 +220,57 @@ function searchByWeight(people) {
   return newArray;
 }
 
+function app(people){
+  var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  switch(searchType){
+    case 'yes':
+    let person = searchByName(people);
+    spouseInfo(people, person);
+    descendantsInfo(people, person);
+    siblingsInfo(people, person);
+    break;
+    case 'no':
+    searchByTraits(people);
+    break;
+    default:
+    alert("Wrong! Please try again, following the instructions dummy. :)");
+    app(people); // restart app
+    break;
+  }
+}
+
+
+
+function searchByName(people){
+  var firstName = promptFor("What is the person's first name?", chars);
+  var lastName = promptFor("What is the person's last name?", chars);
+  firstName = firstName.toLowerCase();
+  lastName = lastName.toLowerCase();
+  let person = people.filter(function (el) {
+    if(firstName == el.firstName.toLowerCase() && lastName == el.lastName.toLowerCase()){
+      alert("Name: " + el.firstName + " " + el.lastName + "\n" + "\n" + 
+
+        "Gender: "+ el.gender + "\n" +
+       "Date of Birth: " + el.dob + "\n" + 
+        "Height: " + el.height + "\n" +
+        "Weight: " + el.weight + "\n" + 
+        "Eye Color: " + el.eyeColor + "\n" +
+        "Occupation: " + el.occupation);
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
+
+  return person[0];
+
+}
+
+// function spouseInfo(people, person){
+//   let spouse = people.filter(function(el){ 
+//     if(person.id === el.currentSpouse) {
+
 
 function searchByEyeColor(people) {
   let userInputEyeColor = prompt("What color is their eyes?");
@@ -279,6 +298,21 @@ function searchByAge(people) {
  dobToAge(people);
  let ageArray = people.filter(function (el) {
     if(el.age == userInputAge) {
+      return true;
+    }
+    else{
+      return false;
+    }
+
+  });
+  // alert("This person's spouse is:")
+  // displayPeople(spouse)
+  return ageArray;
+}
+
+function descendantsInfo(people, person){
+  let descendants = people.filter(function(el){
+    if(person.id == el.parents[0]  || person.id == el.parents[1] ){
       return true;
     }
   });
@@ -349,7 +383,7 @@ function mainMenu(person, people){
 }
 
 function display(people){
-  let userSearchChoice = prompt("You can enter 1 to 5 traits, 'height', 'weight', 'eye color', 'gender', 'age', and 'occupation'." + "\n" + "If you type in 2 or more seporate the traits by one space and nothing else. ENTER EYE COLOR AS THIS: eyecolor");
+  let userSearchChoice = prompt("You can enter 1 to 5 traits, 'height', 'weight', 'eye color', 'gender', 'age', and 'occupation'." + "\n" + "If you type in 2 or more traits, separate the traits by one space and nothing else. ENTER EYE COLOR AS THIS: eyecolor");
   let lowerCase = userSearchChoice.toLowerCase();
   let splittingWords = lowerCase.split(" ");
   return splittingWords;
@@ -363,29 +397,133 @@ function multipleTraits(people, splittingWords){
   for (let i = 0; i < splittingWords.length; i++) {
     switch(splittingWords[i]) {
     case "height":
-      filteredPeople = searchByHeight(people);
+      filteredPeople = searchByHeight(filteredPeople);
       continue;
     case "weight":
-      filteredPeople = searchByWeight(people);
+      filteredPeople = searchByWeight(filteredPeople);
       continue;
     case "eyecolor":
-      filteredPeople = searchByEyeColor(people);
+      filteredPeople = searchByEyeColor(filteredPeople);
       continue;
     case "gender":
-      filteredPeople = searchByGender(people);
+      filteredPeople = searchByGender(filteredPeople);
       continue;
     case "age":
-      filteredPeople = searchByAge(people);
+      filteredPeople = searchByAge(filteredPeople);
       continue;
     case "occupation":
-      filteredPeople = searchByOccupation(people);
+      filteredPeople = searchByOccupation(filteredPeople);
       continue;
     default:
       alert("You entered an invalid search type! Please try again.");
-      multipleTraits(people);
+      display(people);
       continue;
     }
+  } 
+  return filteredPeople;
+}
+// =======
+//       alert("This person's descentdants are:")
+//       displayPeople(descendants)
+//    return descendants;
+// }
 
-   return filteredPeople;
-  }
+function siblingsInfo(people, person){
+  let siblings = people.filter(function(el){
+    if(person.parents[0 || 1] == el.parents[0 || 1] && person.id != el.id){
+        return true;
+      }
+      else{
+        return false;
+      }
+
+  });
+    // alert("This person's siblings are:")
+    // displayPeople(siblings)
+  return siblings;
+}
+//   let spouse = people.filter(function (el){
+//     if(el.currentSpouse == el.id){
+//       alert(el.firstName + el.lastName);
+//       return true;
+//     else{
+//       return false;
+//     }  
+//    }
+//   });
+// }
+
+
+// function familyInfo(person, people){
+//   let spouses = people.filter(function(el){
+//     if(person[0].id === el.currentSpouse) {
+//       // el.currentSpouse = el.firstName + el.lastName;
+
+//       console.log(person[0]);
+//       console.log(el);
+//       return true;
+//     }
+//     else{
+//       return false;
+//     }
+//   });
+//   return spouses;
+
+// }
+
+// function app(people){
+//   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+//   switch(searchType){
+//     case 'yes':
+//     //searchByName(people);
+//     let person = searchByName(people);
+//     //console.log(person);
+//     spouseInfo(people, person);
+//     desendantsInfo(people, person);
+//     siblingsInfo(people, person);
+//     displayfamily(people, person);
+//     break;
+//     case 'no':
+//     searchByTraits(people);
+//     break;
+//     default:
+//     alert("Wrong! Please try again, following the instructions dummy. :)");
+//     app(people); // restart app
+//     break;
+//   }
+// }
+
+
+// alerts a list of people
+function displayPeople(people){
+  alert(people.map(function(person){
+    return person.firstName + " " + person.lastName;
+  }).join("\n"));
+}
+
+function displayPerson(person){
+  // print all of the information about a person:
+  // height, weight, age, name, occupation, eye color.
+  var personInfo = "First Name: " + person.firstName + "\n";
+  personInfo += "Last Name: " + person.lastName + "\n";
+  // TODO: finish getting the rest of the information to display
+  alert(personInfo);
+}
+
+// function that prompts and validates user input
+function promptFor(question, valid){
+  do{
+    var response = prompt(question).trim();
+  } while(!response || !valid(response));
+  return response;
+}
+
+// helper function to pass into promptFor to validate yes/no answers
+function yesNo(input){
+  return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
+}
+
+// helper function to pass in as default promptFor validation
+function chars(input){
+  return true; // default validation only
 }
