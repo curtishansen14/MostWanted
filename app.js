@@ -10,19 +10,8 @@ function app(people){
   switch(searchType){
     case 'yes':
     let person = searchByName(people);
-    let siblings = siblingsInfo(people, person);
-    let spouse = spouseInfo(people, person);
-    let descendants = descendantsInfo(people, person);
-    let parents = parentInfo(people, person);
-    alert("This person's parents are: "); 
-    displayPeople(parents);
-    alert("This person's descendants are: ");
-    displayPeople(descendants);
-    alert("This person's spouse is "); 
-    displayPeople(spouse);
-    alert("This person's siblings are: "); 
-    displayPeople(siblings);
-    // displayFamily(people, person);
+
+    displayFamily(people, person);
     break;
     case 'no':
     searchByTraits(people);
@@ -245,8 +234,6 @@ function parentInfo(people, person){
         false;
       }
   });
-  // alert("This person's parents are:");
-  // displayPeople(parents);
   return parents;
 }
 
@@ -263,8 +250,6 @@ function descendantsInfo(people, person){
   for (let i = 0; i < descendants.length; i++){
     descendants = descendants.concat(descendantsInfo(people, descendants[i]));
   }
-  //alert("This person's descendants are:");
-  //displayPeople(descendants);
    return descendants;
 }
 
@@ -282,23 +267,25 @@ function siblingsInfo(people, person){
       }
     }
   });
-    //alert("This person's siblings are:")
-    //displayPeople(siblings)
   return siblings;
 }
 
 
-// function displayFamily(people, person){
-//   let parents = parentInfo(people, person);
-//   let spouse = spouseInfo(people, person);
-//   let siblings = siblingsInfo(people, person);
-//   let descendants = descendantsInfo(people, person);
+function displayFamily(people, person){
+  let spouse = spouseInfo(people, person);
+  let parents = parentInfo(people, person);
+  let descendants = descendantsInfo(people, person);
+  let siblings = siblingsInfo(people, person);
 
-//   displayPeople(parents);
-//   displayPeople(descendants);
-//   displayPerson(spouse);
-//   displayPeople(siblings);
-// }
+  alert("This person's spouse is "); 
+  displayPerson(spouse);
+  alert("This person's parents are: "); 
+  displayPeople(parents);
+  alert("This person's descendants are: ");
+  displayPeople(descendants);
+  alert("This person's siblings are: ");
+  displayPeople(siblings);
+}
 
 // alerts a list of people
 function displayPeople(people){
