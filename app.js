@@ -7,21 +7,29 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  let person;
   switch(searchType){
     case 'yes':
-    let person = searchByName(people);
+    person = searchByName(people);
     //console.log(person);
     // spouseInfo(people, person);
-    // desendantsInfo(people, person);
-    // siblingsInfo(people, person);
-    displayfamily(people, person);
+    desendantsInfo(people, person);
+    siblingsInfo(people, person);
+    //displayfamily(people, person);
     spouseInfo(people, person);
     let result = descendantsInfo(people, person);
     displayPeople(result);
     siblingsInfo(people, person);
     break;
     case 'no':
-    searchByTraits(people);
+    let anything = display2(data);
+    if(anything.length == 1){
+      mainMenu(anything, people); 
+    }
+    else{
+      display2(anything);
+    }
+    
     break;
     default:
     alert("Wrong! Please try again, following the instructions dummy. :)");
@@ -33,8 +41,8 @@ function app(people){
 function display2(data){
 let call = display(data);
 let traitResults = multipleTraits(data, call);
-// let answer = multipleTraits();
 displayPeople(traitResults);
+return traitResults;
 }
 
 function display(people){
@@ -74,6 +82,35 @@ function multipleTraits(people, splittingWords){
   } 
   return filteredPeople;
 }
+
+
+function searchByName(people){
+  var firstName = promptFor("What is the person's first name?", chars);
+  var lastName = promptFor("What is the person's last name?", chars);
+  firstName = firstName.toLowerCase();
+  lastName = lastName.toLowerCase();
+  let person = people.filter(function (el) {
+    if(firstName == el.firstName.toLowerCase() && lastName == el.lastName.toLowerCase()){
+      alert("Name: " + el.firstName + " " + el.lastName + "\n" + "\n" + 
+
+        "Gender: "+ el.gender + "\n" +
+       "Date of Birth: " + el.dob + "\n" + 
+        "Height: " + el.height + "\n" +
+        "Weight: " + el.weight + "\n" + 
+        "Eye Color: " + el.eyeColor + "\n" +
+        "Occupation: " + el.occupation);
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
+
+  return person[0];
+
+}
+
+
 
 function searchByHeight(people) {
   let userInputHeight = prompt("How tall is this person in inches?");
@@ -167,6 +204,7 @@ function searchByOccupation(people) {
 function mainMenu(person, people){
 
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
+  person = person[0];
 
   if(!person){
     alert("Could not find that individual.");
@@ -191,6 +229,8 @@ function mainMenu(person, people){
     case "quit":
     return; // stop execution
     default:
+    alert("You typed in something wrong");
+    mainMenu(person, people);
     return mainMenu(person, people); // ask again
   }
 }
@@ -199,50 +239,12 @@ function mainMenu(person, people){
 
 
 
-
-
-function descendantsInfo(people, person){
-  let descendants = people.filter(function(el){
-    for (let i = 0; i < el.parents.length; i++){
-          if(person.id == el.parents[i]){
-            return true;
-      }
-  }
-  });
-  for (let i = 0; i < descendants.length; i++){
-    descendants = descendants.concat(descendantsInfo(people, descendants[i]));
-  }
-
-   return descendants;
-}
-
-function siblingsInfo(people, person){
-  let siblings = people.filter(function(el){
-    for (let i = 0; i < el.parents.length; i++) {
-    if(person.parents[0] == el.parents[i] && person.id != el.id){
-        return true;
-      }
-    if (person.parents[1] == el.parents[i] && person.id != el.id){
-        return true;
-      }    
-      else{
-        return false;
-      }
-    }
-  });
-    alert("This person's siblings are:")
-    displayPeople(siblings)
-  return siblings;
-}
-
-
-
-
 // alerts a list of people
 function displayPeople(people){
-  alert(people.map(function(person){
+  let result = alert(people.map(function(person){
     return person.firstName + " " + person.lastName;
   }).join("\n"));
+  return result;
 }
 
 function displayPerson(person){

@@ -684,22 +684,15 @@ function descendantsInfo(people, person){
 //}
 
 
-// function familyInfo(person, people){
-//   let spouses = people.filter(function(el){
-//     if(person[0].id === el.currentSpouse) {
-//       // el.currentSpouse = el.firstName + el.lastName;
+function familyInfo(person, people){
+  let spouses = people.filter(function(el){
+    if(person[0].id === el.currentSpouse) {
+      return true;
+    }
+  });
+  return spouses;
 
-//       console.log(person[0]);
-//       console.log(el);
-//       return true;
-//     }
-//     else{
-//       return false;
-//     }
-//   });
-//   return spouses;
-
-// }
+}
 
 // function app(people){
 //   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
