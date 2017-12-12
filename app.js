@@ -10,16 +10,9 @@ function app(people){
   let person;
   switch(searchType){
     case 'yes':
-    person = searchByName(people);
-    //console.log(person);
-    // spouseInfo(people, person);
-    desendantsInfo(people, person);
-    siblingsInfo(people, person);
-    //displayfamily(people, person);
-    spouseInfo(people, person);
-    let result = descendantsInfo(people, person);
-    displayPeople(result);
-    siblingsInfo(people, person);
+    let person = searchByName(people);
+
+    displayFamily(people, person);
     break;
     case 'no':
     let anything = display2(data);
@@ -36,6 +29,31 @@ function app(people){
     app(people); // restart app
     break;
   }
+}
+
+function searchByName(people){
+  var firstName = promptFor("What is the person's first name?", chars);
+  var lastName = promptFor("What is the person's last name?", chars);
+  firstName = firstName.toLowerCase();
+  lastName = lastName.toLowerCase();
+  let person = people.filter(function (el) {
+    if(firstName == el.firstName.toLowerCase() && lastName == el.lastName.toLowerCase()){
+      alert("Name: " + el.firstName + " " + el.lastName + "\n" + "\n" + 
+
+        "Gender: "+ el.gender + "\n" +
+       "Date of Birth: " + el.dob + "\n" + 
+        "Height: " + el.height + "\n" +
+        "Weight: " + el.weight + "\n" + 
+        "Eye Color: " + el.eyeColor + "\n" +
+        "Occupation: " + el.occupation);
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
+
+  return person[0];
 }
 
 function display2(data){
@@ -215,13 +233,14 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    familyInfo(people);
+    displayPerson(person);
     break;
     case "family":
-    // TODO: get person's family
+    displayFamily(people, person);
     break;
     case "descendants":
-    // TODO: get person's descendants
+    let descendants = descendantsInfo(people, person)
+    displayPeople(descendants);
     break;
     case "restart":
     app(people); // restart
@@ -236,8 +255,75 @@ function mainMenu(person, people){
 }
 
 
+function spouseInfo(people,person){
+  let spouse = people.filter(function(el){
+    if (person.id == el.currentSpouse){
+      return true;
+    }
+  });
+  return spouse;
+}
+
+function parentInfo(people, person){
+  let parents = people.filter(function(el){
+      if (el.id  == person.parents[0] || el.id == person.parents[1]){
+      return true; 
+    }
+      else {
+        false;
+      }
+  });
+  return parents;
+}
 
 
+function descendantsInfo(people, person){
+  let descendants = people.filter(function(el){
+    for (let i = 0; i < el.parents.length; i++){
+          if(person.id == el.parents[i]){
+            return true;
+      }
+  }
+  });
+  for (let i = 0; i < descendants.length; i++){
+    descendants = descendants.concat(descendantsInfo(people, descendants[i]));
+  }
+   return descendants;
+}
+
+function siblingsInfo(people, person){
+  let siblings = people.filter(function(el){
+    for (let i = 0; i < el.parents.length; i++) {
+    if(person.parents[0] == el.parents[i] && person.id != el.id){
+        return true;
+      }
+    if (person.parents[1] == el.parents[i] && person.id != el.id){
+        return true;
+      }    
+      else{
+        return false;
+      }
+    }
+  });
+  return siblings;
+}
+
+
+function displayFamily(people, person){
+  let spouse = spouseInfo(people, person);
+  let parents = parentInfo(people, person);
+  let descendants = descendantsInfo(people, person);
+  let siblings = siblingsInfo(people, person);
+
+  alert("This person's spouse is "); 
+  displayPerson(spouse);
+  alert("This person's parents are: "); 
+  displayPeople(parents);
+  alert("This person's descendants are: ");
+  displayPeople(descendants);
+  alert("This person's siblings are: ");
+  displayPeople(siblings);
+}
 
 // alerts a list of people
 function displayPeople(people){
@@ -252,6 +338,8 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+
+
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
@@ -277,3 +365,13 @@ function chars(input){
 
 
 
+function displayPerson(person){
+  var personInfo = "First Name: " + person.firstName + "\n";
+  personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Gender: "+ person.gender + "\n" +;
+  personInfo += "Date of Birth: " + person.dob + "\n" +
+  personInfo += "Height: " + person.height + "\n" +
+  personInfo += "Eye Color: " + person.eyeColor + "\n" +
+  personInfo += "Occupation: " + el.occupation;  
+  alert(personInfo);
+}
