@@ -198,10 +198,11 @@ function mainMenu(person, people){
     familyInfo(people);
     break;
     case "family":
-    
+    displayFamily(people, person);
     break;
     case "descendants":
-    // TODO: get person's descendants
+    let descendants = descendantsInfo(people, person)
+    displayPeople(descendants);
     break;
     case "restart":
     app(people); // restart
@@ -220,8 +221,6 @@ function spouseInfo(people,person){
       return true;
     }
   });
-  // alert( "This person's spouse is:");
-  // displayPeople(spouse);
   return spouse;
 }
 
@@ -287,6 +286,7 @@ function displayFamily(people, person){
   displayPeople(siblings);
 }
 
+
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
@@ -299,6 +299,8 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+
+
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
@@ -323,3 +325,14 @@ function chars(input){
 }
 
 
+
+function displayPerson(person){
+  var personInfo = "First Name: " + person.firstName + "\n";
+  personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Gender: "+ person.gender + "\n" +;
+  personInfo += "Date of Birth: " + person.dob + "\n" +
+  personInfo += "Height: " + person.height + "\n" +
+  personInfo += "Eye Color: " + person.eyeColor + "\n" +
+  personInfo += "Occupation: " + el.occupation;  
+  alert(personInfo);
+}
