@@ -11,8 +11,7 @@ function app(people){
   switch(searchType){
     case 'yes':
     let person = searchByName(people);
-    validatePerson(person)
-
+    validatePerson(person);
     displayFamily(people, person);
     break;
     case 'no':
