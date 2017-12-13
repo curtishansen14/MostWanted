@@ -12,6 +12,7 @@ function app(people){
     case 'yes':
     let person = searchByName(people);
     validatePerson(person)
+
     displayFamily(people, person);
     break;
     case 'no':
@@ -26,7 +27,7 @@ function app(people){
     break;
     default:
     alert("Wrong! Please try again, following the instructions dummy. :)");
-    app(people); // restart app
+    app(people); 
     break;
   }
 }
@@ -69,9 +70,31 @@ return traitResults;
 }
 
 function display(people){
-  let userSearchChoice = prompt("You can enter 1 to 5 traits, 'height', 'weight', 'eye color', 'gender', 'age', and 'occupation'." + "\n" + "If you type in 2 or more traits, separate the traits by one space and nothing else. ENTER EYE COLOR AS THIS: eyecolor");
+  let userSearchChoice = prompt("You can enter 1 to 5 traits, 'height', 'weight', 'eye color', 'gender', 'age', and 'occupation'." + "\n" + "If you type in 2 or more traits, separate the traits by one space and nothing else. ENTER EYE COLOR AS THIS: eyecolor" + "\n" + "If you get multiple people back then it will automatically go back so you can narrow it down even more." + 
+    "\n" +
+    "Also if you type the value for a trait wrong you will get a blank page then be sent back to the trait page.");
   let lowerCase = userSearchChoice.toLowerCase();
   let splittingWords = lowerCase.split(" ");
+  for (let i = 0; i < splittingWords.length; i++){
+  switch(splittingWords[i]) {
+    case "height":
+      break;
+    case "weight":
+      break;
+    case "eyecolor":
+      break;
+    case "gender":
+      break;
+    case "age":
+      break;
+    case "occupation":
+      break;
+    default:
+      alert("You entered an invalid search type! Please try again.");
+      return display(people);
+      break;
+    }
+  }
   return splittingWords;
 }
 
@@ -99,8 +122,8 @@ function multipleTraits(people, splittingWords){
       continue;
     default:
       alert("You entered an invalid search type! Please try again.");
-      display(people);
-      continue;
+      return display(people);
+      break;
     }
   } 
   return filteredPeople;
@@ -223,10 +246,9 @@ function searchByOccupation(people) {
 }
 
 
-// Menu function to call once you find who you are looking for
+
 function mainMenu(person, people){
 
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
   person = person[0];
 
   if(!person){
@@ -255,7 +277,7 @@ function mainMenu(person, people){
     default:
     alert("You typed in something wrong");
     mainMenu(person, people);
-    return mainMenu(person, people); // ask again
+    return mainMenu(person, people);
   }
 }
 
@@ -339,7 +361,7 @@ function displayFamily(people, person){
 }
 }
 
-// alerts a list of people
+
 function displayPeople(people){
   let result = alert(people.map(function(person){
     return person.firstName + " " + person.lastName;
@@ -347,16 +369,6 @@ function displayPeople(people){
   return result;
 }
 
-function displayPerson(person){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
-  var personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-
-
-  // TODO: finish getting the rest of the information to display
-  alert(personInfo);
-}
 
 // function that prompts and validates user input
 function promptFor(question, valid){
