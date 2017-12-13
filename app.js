@@ -368,10 +368,10 @@ function chars(input){
 function displayPerson(person){
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Gender: "+ person.gender + "\n" +;
-  personInfo += "Date of Birth: " + person.dob + "\n" +
-  personInfo += "Height: " + person.height + "\n" +
-  personInfo += "Eye Color: " + person.eyeColor + "\n" +
-  personInfo += "Occupation: " + el.occupation;  
+  personInfo += "Gender: "+ person.gender + "\n" ;
+  personInfo += "Date of Birth: " + person.dob + "\n" ;
+  personInfo += "Height: " + person.height + "\n" ;
+  personInfo += "Eye Color: " + person.eyeColor + "\n" ;
+  personInfo += "Occupation: " + person.occupation;  
   alert(personInfo);
 }
