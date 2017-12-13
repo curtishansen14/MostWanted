@@ -11,7 +11,6 @@ function app(people){
   switch(searchType){
     case 'yes':
     let person = searchByName(people);
-
     displayFamily(people, person);
     break;
     case 'no':
@@ -64,9 +63,31 @@ return traitResults;
 }
 
 function display(people){
-  let userSearchChoice = prompt("You can enter 1 to 5 traits, 'height', 'weight', 'eye color', 'gender', 'age', and 'occupation'." + "\n" + "If you type in 2 or more traits, separate the traits by one space and nothing else. ENTER EYE COLOR AS THIS: eyecolor");
+  let userSearchChoice = prompt("You can enter 1 to 5 traits, 'height', 'weight', 'eye color', 'gender', 'age', and 'occupation'." + "\n" + "If you type in 2 or more traits, separate the traits by one space and nothing else. ENTER EYE COLOR AS THIS: eyecolor" + "\n" + "If you get multiple people back then it will automatically go back so you can narrow it down even more." + 
+    "\n" +
+    "Also if you type the value for a trait wrong you will get a blank page then be sent back to the trait page.");
   let lowerCase = userSearchChoice.toLowerCase();
   let splittingWords = lowerCase.split(" ");
+  for (let i = 0; i < splittingWords.length; i++){
+  switch(splittingWords[i]) {
+    case "height":
+      break;
+    case "weight":
+      break;
+    case "eyecolor":
+      break;
+    case "gender":
+      break;
+    case "age":
+      break;
+    case "occupation":
+      break;
+    default:
+      alert("You entered an invalid search type! Please try again.");
+      return display(people);
+      break;
+    }
+  }
   return splittingWords;
 }
 
@@ -94,8 +115,8 @@ function multipleTraits(people, splittingWords){
       continue;
     default:
       alert("You entered an invalid search type! Please try again.");
-      display(people);
-      continue;
+      return display(people);
+      break;
     }
   } 
   return filteredPeople;
@@ -368,10 +389,10 @@ function chars(input){
 function displayPerson(person){
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Gender: "+ person.gender + "\n" +;
-  personInfo += "Date of Birth: " + person.dob + "\n" +
-  personInfo += "Height: " + person.height + "\n" +
-  personInfo += "Eye Color: " + person.eyeColor + "\n" +
-  personInfo += "Occupation: " + el.occupation;  
+  personInfo += "Gender: "+ person.gender + "\n" 
+  personInfo += "Date of Birth: " + person.dob + "\n" 
+  personInfo += "Height: " + person.height + "\n" 
+  personInfo += "Eye Color: " + person.eyeColor + "\n" 
+  personInfo += "Occupation: " + person.occupation;  
   alert(personInfo);
 }
