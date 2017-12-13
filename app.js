@@ -25,7 +25,7 @@ function app(people){
     break;
     default:
     alert("Wrong! Please try again, following the instructions dummy. :)");
-    app(people); // restart app
+    app(people); 
     break;
   }
 }
@@ -239,10 +239,9 @@ function searchByOccupation(people) {
 }
 
 
-// Menu function to call once you find who you are looking for
+
 function mainMenu(person, people){
 
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
   person = person[0];
 
   if(!person){
@@ -271,7 +270,7 @@ function mainMenu(person, people){
     default:
     alert("You typed in something wrong");
     mainMenu(person, people);
-    return mainMenu(person, people); // ask again
+    return mainMenu(person, people);
   }
 }
 
@@ -346,7 +345,7 @@ function displayFamily(people, person){
   displayPeople(siblings);
 }
 
-// alerts a list of people
+
 function displayPeople(people){
   let result = alert(people.map(function(person){
     return person.firstName + " " + person.lastName;
@@ -354,16 +353,6 @@ function displayPeople(people){
   return result;
 }
 
-function displayPerson(person){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
-  var personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-
-
-  // TODO: finish getting the rest of the information to display
-  alert(personInfo);
-}
 
 // function that prompts and validates user input
 function promptFor(question, valid){
@@ -389,17 +378,10 @@ function chars(input){
 function displayPerson(person){
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-<<<<<<< HEAD
-  personInfo += "Gender: "+ person.gender + "\n" 
-  personInfo += "Date of Birth: " + person.dob + "\n" 
-  personInfo += "Height: " + person.height + "\n" 
-  personInfo += "Eye Color: " + person.eyeColor + "\n" 
-=======
   personInfo += "Gender: "+ person.gender + "\n" ;
   personInfo += "Date of Birth: " + person.dob + "\n" ;
   personInfo += "Height: " + person.height + "\n" ;
   personInfo += "Eye Color: " + person.eyeColor + "\n" ;
->>>>>>> 6f32fb7e212fa1c5b590705cb5764db8f35cc01b
   personInfo += "Occupation: " + person.occupation;  
   alert(personInfo);
 }
