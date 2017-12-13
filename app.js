@@ -11,7 +11,7 @@ function app(people){
   switch(searchType){
     case 'yes':
     let person = searchByName(people);
-
+    validatePerson(person)
     displayFamily(people, person);
     break;
     case 'no':
@@ -53,7 +53,12 @@ function searchByName(people){
     }
   });
 
+  if (person == undefined){
+    alert("This person is not in your database. Please try again.");
+    app(people);
+  }else{
   return person[0];
+}
 }
 
 function display2(data){
@@ -315,14 +320,23 @@ function displayFamily(people, person){
   let descendants = descendantsInfo(people, person);
   let siblings = siblingsInfo(people, person);
 
-  alert("This person's spouse is "); 
-  displayPerson(spouse);
-  alert("This person's parents are: "); 
-  displayPeople(parents);
-  alert("This person's descendants are: ");
-  displayPeople(descendants);
-  alert("This person's siblings are: ");
-  displayPeople(siblings);
+
+    if (spouse != undefined){
+    alert("This person's spouse is: ");
+    displayPeople(spouse);
+}
+    if (parents != undefined){
+        alert("This person's parents are: "); 
+        displayPeople(parents);
+    }
+    if (descendants != undefined){
+        alert("This person's descendants are: ");
+        displayPeople(descendants);
+    }
+    if (siblings != undefined){
+        alert("This person's siblings are: ");
+        displayPeople(siblings);
+}
 }
 
 // alerts a list of people
@@ -374,4 +388,11 @@ function displayPerson(person){
   personInfo += "Eye Color: " + person.eyeColor + "\n" ;
   personInfo += "Occupation: " + person.occupation;  
   alert(personInfo);
+}
+
+function validatePerson(person){
+  if (person == undefined){
+    alert("The name you have entered is not in our database. Please begin again.");
+    app(data);
+  }
 }
